@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            background-color: rgb(5, 5, 46);
+            color: white;
+            line-height: 50px;
+        }
+
+        #all-tools {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .rpc {
+            height: 220px;
+            width: 220px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .rpc:hover {
+            cursor: pointer;
+            opacity: 0.8;
+            background-color: rgb(5, 5, 46);
+        }
+
+        img {
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        #score-board {
+            margin-top: 3rem;
+            font-size: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        #user-score,
+        #comp-score {
+            font-size: 5rem;
+        }
+
+        #message {
+            margin-top: 4rem;
+            font-size: 2rem;
+            background-color: rgb(5, 5, 46);
+            color: white;
+            border-radius: 1rem;
+            display: inline-block;
+            padding: 1rem;
+        }
+
+        #message:hover {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+        #infoDiv{
+            margin-top: 4rem;
+            font-size: larger;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Rock Paper Scissors Game</h1>
+    <div id="all-tools">
+        <div class="rpc" id="rock">
+            <img src="rock.png">
+        </div>
+        <div class="rpc" id="paper">
+            <img src="paper.png">
+        </div>
+        <div class="rpc" id="scissors">
+            <img src="scissors.png">
+        </div>
+    </div>
+    <div id="score-board">
+        <div class="score">
+            <p id="user-score">0</p>
+            <p>User</p>
+        </div>
+        <div class="score">
+            <p id="comp-score">0</p>
+            <p>Computer</p>
+        </div>
+    </div>
+    <div id="infoDiv"></div>
+    <div id="message">
+        <p id="info">Select your choice</p>
+    </div>
+    <script>
+        let choices = document.querySelectorAll(".rpc");
+        let compChoice;
+        let message = document.querySelector("#info");
+        const userScoreAccess = document.querySelector("#user-score");
+        const compScoreAccess = document.querySelector("#comp-score");
+        let userScore = 0, compScore = 0;
+        const msgBox = document.querySelector("#message");
+        const infoDiv = document.querySelector("#infoDiv")
+
+        const genComp = () => {
+            const options = ["rock", "paper", "scissors"];
+            let randIdx = Math.floor(Math.random() * 3);
+            return options[randIdx];
+        };
+
+        const matchDraw = () => {
+            console.log("Match was draw. Computer selected ", compChoice);
+            message.innerText = "Match was draw. Play again";
+            msgBox.style.backgroundColor = "rgb(5, 5, 46)";
+        };
+
+        const userWin = () => {
+            userScore++;
+            console.log("You won! Computer selected ", compChoice);
+            message.innerText = "You won. Select again";
+            userScoreAccess.innerText = userScore;
+            msgBox.style.backgroundColor = "green";
+        };
+
+        const userLose = () => {
+            compScore++;
+            console.log("You lost. Computer selected ", compChoice);
+            message.innerText = "You lost. Better luck next time!";
+            compScoreAccess.innerText = compScore;
+            msgBox.style.backgroundColor = "red";
+        };
+
+        choices.forEach((choice) => {
+            choice.addEventListener("click", () => {
+                let userChoice = choice.getAttribute("id");
+                console.log(userChoice + " was clicked");
+                compChoice = genComp();
+                if (userChoice === compChoice) {
+                    matchDraw();
+                }
+
+                else if (userChoice === "rock") {
+                    if (compChoice === "scissors") {
+                        userWin();
+                    }
+                    else {
+                        userLose();
+                    }
+                }
+
+                else if (userChoice === "paper") {
+                    if (compChoice === "rock") {
+                        userWin();
+                    }
+                    else {
+                        userLose();
+                    }
+                }
+
+
+                else if (userChoice === "scissors") {
+                    if (compChoice === "paper") {
+                        userWin();
+                    }
+                    else {
+                        userLose();
+                    }
+                }
+                infoDiv.textContent = `You chose ${userChoice} and bot chose ${genComp()}`
+            });
+        });
+        
+    </script>
+</body>
+
+</html>
