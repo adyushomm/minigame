@@ -84,6 +84,43 @@
             margin-top: 4rem;
             font-size: larger;
         }
+        @media (max-width: 768px) {
+            #all-tools {
+                flex-wrap: wrap;
+                gap: 1.5rem;
+                margin-top: 2rem;
+            }
+
+            .rpc {
+                height: 120px;
+                width: 120px;
+            }
+
+            img {
+                height: 100px;
+                width: 100px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+                line-height: normal;
+                padding: 10px;
+            }
+
+            #score-board {
+                gap: 2rem;
+            }
+
+            #user-score,
+            #comp-score {
+                font-size: 3rem;
+            }
+
+            #message {
+                font-size: 1.2rem;
+                margin-top: 3rem;
+            }
+        }
     </style>
 </head>
 
@@ -188,7 +225,7 @@
                         userLose();
                     }
                 }
-                infoDiv.textContent = `You chose ${userChoice} and bot chose ${genComp()}`
+                infoDiv.textContent = `You chose ${userChoice} and bot chose ${compChoice}`
             });
         });
         
